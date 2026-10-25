@@ -48,13 +48,13 @@ DSH 本身不带本地推理，只认「provider 适配器」。这个插件补�
 从本地安装包：
 
 ```powershell
-dsh plugin --profile web add "file:D:\path\to\dsh-local-model-0.4.1.tgz"
+dsh plugin --profile web add "file:你下载的地址盘:\dsh-local-model-0.4.1.tgz"
 ```
 
 从 GitHub 安装：
 
 ```powershell
-dsh plugin --profile web add github:<账号>/dsh-local-model
+dsh plugin --profile web add github:Elantino/dsh-local-model
 ```
 
 安装完成后：
@@ -183,9 +183,9 @@ dsh plugin --profile web add github:<账号>/dsh-local-model
 
 | 上下文 | 适合 |
 | --- | --- |
-| 2K–8K | 小模型、短对话 |
+| 2K–8K | 小模型、短对话 |(在dsh上使用时，调用工具占比达17k左右，不推荐在dsh上使用该上下文长度，至少32k）
 | 16K–32K | 日常使用、带工具调用的 Agent |
-| 64K 以上 | 需要大显存，8GB 卡基本放不下 |
+| 64K 以上 | 需要大显存|
 
 **8GB 显存跑 9B Q4 的实测配方**：
 
