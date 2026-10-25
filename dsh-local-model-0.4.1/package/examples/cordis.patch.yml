@@ -1,0 +1,50 @@
+# 一份可直接改的 profile 补丁示例。
+#
+# 把它合并进你的 profile 补丁文件：
+#   Windows: %USERPROFILE%\.dsh\profiles\web\cordis.patch.yml
+#   macOS/Linux: ~/.dsh/profiles/web/cordis.patch.yml
+#
+# 补丁按 id 命中 dsh-local-model 自动插入的那一行，并整段替换它的 config，
+# 所以这里要把想保留的字段都写全。
+
+- id: local-model
+  config:
+    provider: local
+    providerName: Local Models
+    # 不写则依次尝试 LLAMA_SERVER 环境变量与 PATH 里的 llama-server
+    llamaServer: ''
+    basePort: 8177
+    startupTimeoutMs: 180000
+    # 10 分钟没有请求就卸载模型，0 表示常驻
+    idleTimeoutMs: 600000
+    defaultMaxTokens: 4096
+    # GGUF 里声明的上下文再大，也最多按这个值启动；要更大就显式写 ctxSize
+    autoContextCeiling: 8192
+    models:
+      # 1) 直接吃 GGUF 文件：插件自己拉起 llama-server
+      - id: qwen3-8b
+        name: Qwen3 8B (本地 GGUF)
+        file: D:\models\Qwen3-8B-Q4_K_M.gguf
+        ctxSize: 16384
+        gpuLayers: 999
+        threads: 8
+        jinja: true
+
+      # 2) Ollama 原生接口，可通过 num_ctx 调整上下文
+      - id: ollama-qwen
+        name: Qwen3.5 9B (Ollama)
+        backend: ollama
+        baseURL: http://127.0.0.1:11434
+        remoteModel: qwen3.5-9b-uncensored:latest
+        contextWindow: 32768
+        maxTokens: 2048
+        # 关闭 thinking：思考内容也占用输出额度
+        think: false
+
+      # 3) OpenAI 兼容 API（同样支持已有 llama-server / LM Studio）
+      - id: remote-api
+        backend: openai
+        baseURL: https://api.example.com/v1
+        remoteModel: model-name
+        apiKeyEnv: MODEL_API_KEY
+        contextWindow: 32768
