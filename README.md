@@ -48,13 +48,13 @@ DSH 本身不带本地推理，只认「provider 适配器」。这个插件补�
 从本地安装包：
 
 ```powershell
-dsh plugin --profile web add "file:你下载的地址盘:\dsh-local-model-0.4.1.tgz"
+npx @deepseek-ai/dsh plugin --profile web add "file:你下载的地址盘:\dsh-local-model-0.4.1.tgz"
 ```
 
 从 GitHub 安装：
 
 ```powershell
-dsh plugin --profile web add github:Elantino/dsh-local-model
+npx @deepseek-ai/dsh plugin --profile web add github:Elantino/dsh-local-model
 ```
 
 安装完成后：
