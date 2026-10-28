@@ -1,2 +1,3 @@
 dsh-local-model-0.4.1/ export-ignore
+dsh-local-model-0.5/ export-ignore
 # add export-ignore 排除旧版本目录
