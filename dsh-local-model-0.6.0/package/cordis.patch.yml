@@ -1,0 +1,23 @@
+# dsh-local-model — DSH bundle patch.
+#
+# DSH applies this file automatically when the package is installed as a bundle,
+# which mounts one plugin row with id `local-model`.
+#
+# Configure it from your own profile patch file (usually
+# $DSH_HOME/profiles/web/cordis.patch.yml). A patch REPLACES the whole `config`
+# object of the row it targets, so restate every field you want to keep:
+#
+#   - id: local-model
+#     config:
+#       providerName: Local Models
+#       models:
+#         - id: qwen3-8b
+#           file: D:\models\Qwen3-8B-Q4_K_M.gguf
+#
+# The shipped default registers the provider with no models, so a fresh install
+# boots cleanly and the composer simply shows nothing until you add a model.
+- insert:
+    - id: local-model
+      name: 'dsh-local-model'
+      config:
+        models: []
